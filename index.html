@@ -308,7 +308,7 @@
     // it, so a user-agent quirk on the real 13.52 console can never lock it out.
     if (!supported) {
         setState("UNSUPPORTED FIRMWARE", "bad");
-        waitForTap("UNSUPPORTED (" + (key || "unknown") + ") -- pencet X untuk menjalankan HEN...", go);
+        waitForTap("UNSUPPORTED (" + (key || "unknown") + ") -- klik X untuk menjalankan HEN...", go);
         return;
     }
 
@@ -324,7 +324,7 @@
     } else if (ac.status === ac.UPDATEREADY) {
         try { ac.swapCache(); } catch (e) {}
         setCache("update downloaded", true);
-        waitForTap("UPDATE READY -- pencet X untuk menjalankan",
+        waitForTap("UPDATE READY -- klik X untuk menjalankan",
                    function () { location.reload(); });
     } else {
         setCache("checking cache...");
@@ -336,12 +336,12 @@
         }, false);
         ac.addEventListener("cached", function () {
             setCache("cached for offline use", true);
-            waitForTap("CACHED (first run) -- pencet X menjalankan", go);
+            waitForTap("CACHED (first run) -- klik X menjalankan", go);
         }, false);
         ac.addEventListener("updateready", function () {
             try { ac.swapCache(); } catch (e) {}
             setCache("update downloaded", true);
-            waitForTap("UPDATE READY -- pencet X menjalankan",
+            waitForTap("UPDATE READY -- klik X menjalankan",
                        function () { location.reload(); });
         }, false);
         ac.addEventListener("noupdate", function () {
@@ -350,11 +350,11 @@
         }, false);
         ac.addEventListener("error", function () {
             setCache("cache unavailable");
-            waitForTap("CACHE FAILED -- pencet X menjalankan", go);
+            waitForTap("CACHE FAILED -- klik X menjalankan", go);
         }, false);
         ac.addEventListener("obsolete", function () {
             setCache("cache obsolete");
-            waitForTap("CACHE OBSOLETE -- pencet X menjalankan", go);
+            waitForTap("CACHE OBSOLETE -- klik X menjalankan", go);
         }, false);
     }
 })();

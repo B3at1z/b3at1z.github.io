@@ -13,6 +13,7 @@
     color: #ffffff;
     font: 15px/1.45 "Segoe UI", system-ui, sans-serif;
     overflow-x: hidden;
+    box-sizing: border-box;
   }
 
   /* glow merah halus di background */
@@ -74,11 +75,12 @@
 
   /* ===== LAYOUT ===== */
   #wrap {
-    padding: 28px 18px 110px;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    min-height: calc(100vh - 70px - 90px);
+    padding: 20px 18px;
+    box-sizing: border-box;
   }
 
   /* ===== CARD GAMING ===== */

